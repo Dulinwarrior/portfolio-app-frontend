@@ -1,5 +1,3 @@
-// frontend/src/components/AboutMe.js
-
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
 import axios from "axios";
@@ -7,7 +5,6 @@ import axios from "axios";
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
 
-  // Fetch data from backend
   useEffect(() => {
     axios
       .get("http://localhost:5002/api/about-me")
@@ -67,6 +64,44 @@ const AboutMe = () => {
           height: "250px",
           borderRadius: "50%",
           animation: "pulse 7s infinite",
+        }}
+      />
+
+      {/* Decorative Background Squares */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: "20%",
+          left: "40%",
+          background: "linear-gradient(135deg, #0d47a1, #1565c0)",
+          width: "100px",
+          height: "100px",
+          opacity: 0.4,
+          transform: "rotate(45deg)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "20%",
+          right: "10%",
+          background: "linear-gradient(135deg, #1565c0, #42a5f5)",
+          width: "80px",
+          height: "80px",
+          opacity: 0.3,
+          transform: "rotate(45deg)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          top: "40%",
+          left: "5%",
+          background: "linear-gradient(135deg, #64b5f6, #bbdefb)",
+          width: "120px",
+          height: "120px",
+          opacity: 0.3,
+          transform: "rotate(45deg)",
         }}
       />
 
