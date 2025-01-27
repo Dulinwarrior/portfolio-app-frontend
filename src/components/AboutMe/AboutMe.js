@@ -1,10 +1,14 @@
+// frontend/src/components/AboutMe.js
+
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
 import axios from "axios";
+import { FaLaptopCode, FaPaintBrush, FaBook } from "react-icons/fa"; // Add icons from react-icons
 
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
 
+  // Fetch data from backend
   useEffect(() => {
     axios
       .get("http://localhost:5002/api/about-me")
@@ -19,6 +23,13 @@ const AboutMe = () => {
   if (!aboutMeData) {
     return <Typography variant="h6" align="center">Loading...</Typography>;
   }
+
+  // Icon mapping based on section title
+  const iconMap = {
+    Coding: <FaLaptopCode />,
+    Art: <FaPaintBrush />,
+    Learning: <FaBook />,
+  };
 
   return (
     <Box
@@ -67,44 +78,6 @@ const AboutMe = () => {
         }}
       />
 
-      {/* Decorative Background Squares */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: "20%",
-          left: "40%",
-          background: "linear-gradient(135deg, #0d47a1, #1565c0)",
-          width: "100px",
-          height: "100px",
-          opacity: 0.4,
-          transform: "rotate(45deg)",
-        }}
-      />
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "20%",
-          right: "10%",
-          background: "linear-gradient(135deg, #1565c0, #42a5f5)",
-          width: "80px",
-          height: "80px",
-          opacity: 0.3,
-          transform: "rotate(45deg)",
-        }}
-      />
-      <Box
-        sx={{
-          position: "absolute",
-          top: "40%",
-          left: "5%",
-          background: "linear-gradient(135deg, #64b5f6, #bbdefb)",
-          width: "120px",
-          height: "120px",
-          opacity: 0.3,
-          transform: "rotate(45deg)",
-        }}
-      />
-
       {/* Header with Gradient and Curved Edge */}
       <Box
         sx={{
@@ -149,7 +122,7 @@ const AboutMe = () => {
           {aboutMeData.intro}
         </Typography>
 
-        {/* Info Boxes with Image */}
+        {/* Info Boxes with Icons */}
         <Grid container spacing={3} justifyContent="center">
           {aboutMeData.sections.map((section, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
@@ -160,8 +133,20 @@ const AboutMe = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                   textAlign: "center",
+                  position: "relative",
                 }}
               >
+                {/* Animated Icon */}
+                <Box
+                  sx={{
+                    fontSize: "2rem",
+                    color: "#0d47a1",
+                    animation: "bounce 2s infinite",
+                  }}
+                >
+                  {iconMap[section.title] || <FaBook />} {/* Default icon */}
+                </Box>
+
                 <img
                   src={section.imageUrl}
                   alt={section.title}
@@ -201,7 +186,7 @@ const AboutMe = () => {
         </Box>
       </Container>
 
-      {/* Keyframes for Circle Animation */}
+      {/* Keyframes for Animations */}
       <style>
         {`
           @keyframes pulse {
@@ -216,6 +201,14 @@ const AboutMe = () => {
             100% {
               transform: scale(1);
               opacity: 0.8;
+            }
+          }
+          @keyframes bounce {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-10px);
             }
           }
         `}
