@@ -124,6 +124,7 @@ const AboutMe = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                   textAlign: "center",
+                  transition: "transform 0.3s ease", // Adding smooth transition
                 }}
               >
                 <img
@@ -133,7 +134,9 @@ const AboutMe = () => {
                     width: "100%",
                     borderRadius: "10px",
                     marginBottom: "15px",
+                    transition: "transform 0.3s ease", // Smooth transition for scaling
                   }}
+                  className="hover-image" // Class to apply hover effect
                 />
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   {section.title}
@@ -220,6 +223,10 @@ const AboutMe = () => {
             50% {
               transform: translateY(-20px);
             }
+          }
+
+          .hover-image:hover {
+            transform: scale(1.05); /* Slight zoom on hover */
           }
         `}
       </style>
