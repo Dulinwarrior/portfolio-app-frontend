@@ -1,13 +1,10 @@
-// frontend/src/components/AboutMe.js
-
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
-import { FaArrowUp } from "react-icons/fa";
 import axios from "axios";
+import { FaLaptopCode, FaCamera, FaMountain, FaBicycle } from "react-icons/fa"; // Add icons
 
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
-  const [showScroll, setShowScroll] = useState(false);
 
   // Fetch data from backend
   useEffect(() => {
@@ -20,28 +17,6 @@ const AboutMe = () => {
         console.error("Error fetching data from backend:", error);
       });
   }, []);
-
-  // Handle scroll event to show/hide Back to Top button
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScroll(true);
-      } else {
-        setShowScroll(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   if (!aboutMeData) {
     return <Typography variant="h6" align="center">Loading...</Typography>;
@@ -171,7 +146,7 @@ const AboutMe = () => {
           ))}
         </Grid>
 
-        {/* Interactive Section */}
+        {/* Interactive Section with Animated Button */}
         <Box style={{ textAlign: "center", marginTop: "40px" }}>
           <Typography variant="h6" style={{ marginBottom: "20px" }}>
             Want to learn more?
@@ -183,6 +158,9 @@ const AboutMe = () => {
               color: "#ffffff",
               padding: "10px 20px",
               fontSize: "1rem",
+              position: "relative",
+              animation: "glow 2s infinite",
+              boxShadow: "0 0 10px #0d47a1",
             }}
           >
             Get in Touch
@@ -190,32 +168,22 @@ const AboutMe = () => {
         </Box>
       </Container>
 
-      {/* Back to Top Button */}
-      {showScroll && (
-        <Box
-          onClick={scrollToTop}
-          sx={{
-            position: "fixed",
-            bottom: "30px",
-            right: "30px",
-            background: "#0d47a1",
-            color: "#ffffff",
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            animation: "fadeIn 0.5s",
-          }}
-        >
-          <FaArrowUp size={20} />
-        </Box>
-      )}
+      {/* Small Animated Icons Section */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "40px",
+          marginTop: "50px",
+        }}
+      >
+        <FaLaptopCode size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
+        <FaCamera size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
+        <FaMountain size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
+        <FaBicycle size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
+      </Box>
 
-      {/* Keyframes for Circle Animation */}
+      {/* Keyframes for Animations */}
       <style>
         {`
           @keyframes pulse {
@@ -232,12 +200,25 @@ const AboutMe = () => {
               opacity: 0.8;
             }
           }
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
+
+          @keyframes glow {
+            0% {
+              box-shadow: 0 0 5px #0d47a1;
             }
-            to {
-              opacity: 1;
+            50% {
+              box-shadow: 0 0 20px #1565c0;
+            }
+            100% {
+              box-shadow: 0 0 5px #0d47a1;
+            }
+          }
+
+          @keyframes bounce {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-20px);
             }
           }
         `}
