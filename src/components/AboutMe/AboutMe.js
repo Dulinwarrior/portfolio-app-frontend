@@ -10,7 +10,7 @@ const AboutMe = () => {
   // Fetch data from backend
   useEffect(() => {
     axios
-      .get("http://localhost:5002/api/about-me") // Updated to match the backend route
+      .get("http://localhost:5002/api/about-me")
       .then((response) => {
         setAboutMeData(response.data);
       })
@@ -28,8 +28,48 @@ const AboutMe = () => {
       style={{
         background: "linear-gradient(to bottom, #e3f2fd, #ffffff)",
         minHeight: "100vh",
+        overflow: "hidden",
+        position: "relative",
       }}
     >
+      {/* Decorative Background Circles */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: "10%",
+          left: "10%",
+          background: "radial-gradient(circle, #bbdefb, transparent)",
+          width: "200px",
+          height: "200px",
+          borderRadius: "50%",
+          animation: "pulse 6s infinite",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          right: "20%",
+          background: "radial-gradient(circle, #90caf9, transparent)",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          animation: "pulse 8s infinite",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "10%",
+          left: "30%",
+          background: "radial-gradient(circle, #e3f2fd, transparent)",
+          width: "250px",
+          height: "250px",
+          borderRadius: "50%",
+          animation: "pulse 7s infinite",
+        }}
+      />
+
       {/* Header with Gradient and Curved Edge */}
       <Box
         sx={{
@@ -60,34 +100,6 @@ const AboutMe = () => {
           paddingBottom: "30px",
         }}
       >
-        {/* Decorative Background Icons */}
-        <Box
-          component="div"
-          sx={{
-            position: "absolute",
-            top: "10%",
-            left: "5%",
-            backgroundColor: "#bbdefb",
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-            opacity: 0.4,
-          }}
-        />
-        <Box
-          component="div"
-          sx={{
-            position: "absolute",
-            bottom: "15%",
-            right: "15%",
-            backgroundColor: "#90caf9",
-            width: "80px",
-            height: "80px",
-            borderRadius: "50%",
-            opacity: 0.3,
-          }}
-        />
-
         {/* Introduction Section */}
         <Typography
           variant="h4"
@@ -153,6 +165,26 @@ const AboutMe = () => {
           </Button>
         </Box>
       </Container>
+
+      {/* Keyframes for Circle Animation */}
+      <style>
+        {`
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+              opacity: 0.8;
+            }
+            50% {
+              transform: scale(1.2);
+              opacity: 0.6;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 0.8;
+            }
+          }
+        `}
+      </style>
     </Box>
   );
 };
