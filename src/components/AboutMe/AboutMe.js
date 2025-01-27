@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
+import { FaArrowUp } from "react-icons/fa";
 import axios from "axios";
-import { FaLaptopCode, FaPaintBrush, FaBook } from "react-icons/fa"; // Add icons from react-icons
 
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
+  const [showScroll, setShowScroll] = useState(false);
 
   // Fetch data from backend
   useEffect(() => {
@@ -20,16 +21,31 @@ const AboutMe = () => {
       });
   }, []);
 
+  // Handle scroll event to show/hide Back to Top button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   if (!aboutMeData) {
     return <Typography variant="h6" align="center">Loading...</Typography>;
   }
-
-  // Icon mapping based on section title
-  const iconMap = {
-    Coding: <FaLaptopCode />,
-    Art: <FaPaintBrush />,
-    Learning: <FaBook />,
-  };
 
   return (
     <Box
@@ -122,7 +138,7 @@ const AboutMe = () => {
           {aboutMeData.intro}
         </Typography>
 
-        {/* Info Boxes with Icons */}
+        {/* Info Boxes with Image */}
         <Grid container spacing={3} justifyContent="center">
           {aboutMeData.sections.map((section, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
@@ -133,20 +149,8 @@ const AboutMe = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                   textAlign: "center",
-                  position: "relative",
                 }}
               >
-                {/* Animated Icon */}
-                <Box
-                  sx={{
-                    fontSize: "2rem",
-                    color: "#0d47a1",
-                    animation: "bounce 2s infinite",
-                  }}
-                >
-                  {iconMap[section.title] || <FaBook />} {/* Default icon */}
-                </Box>
-
                 <img
                   src={section.imageUrl}
                   alt={section.title}
@@ -186,7 +190,32 @@ const AboutMe = () => {
         </Box>
       </Container>
 
-      {/* Keyframes for Animations */}
+      {/* Back to Top Button */}
+      {showScroll && (
+        <Box
+          onClick={scrollToTop}
+          sx={{
+            position: "fixed",
+            bottom: "30px",
+            right: "30px",
+            background: "#0d47a1",
+            color: "#ffffff",
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            animation: "fadeIn 0.5s",
+          }}
+        >
+          <FaArrowUp size={20} />
+        </Box>
+      )}
+
+      {/* Keyframes for Circle Animation */}
       <style>
         {`
           @keyframes pulse {
@@ -203,12 +232,12 @@ const AboutMe = () => {
               opacity: 0.8;
             }
           }
-          @keyframes bounce {
-            0%, 100% {
-              transform: translateY(0);
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
             }
-            50% {
-              transform: translateY(-10px);
+            to {
+              opacity: 1;
             }
           }
         `}
