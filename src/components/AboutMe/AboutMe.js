@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Grid, Button } from "@mui/material";
 import axios from "axios";
-import { FaLaptopCode, FaCamera, FaMountain, FaBicycle } from "react-icons/fa"; // Add icons
+import { FaLaptopCode, FaCamera, FaMountain, FaBicycle } from "react-icons/fa"; 
 
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
 
-  // Fetch data from backend
   useEffect(() => {
     axios
       .get("http://localhost:5002/api/about-me")
@@ -31,45 +30,31 @@ const AboutMe = () => {
         position: "relative",
       }}
     >
-      {/* Decorative Background Circles */}
+      {/* Decorative Small Dots */}
       <Box
         sx={{
           position: "absolute",
-          top: "10%",
-          left: "10%",
-          background: "radial-gradient(circle, #bbdefb, transparent)",
-          width: "200px",
-          height: "200px",
+          top: "5%",
+          left: "15%",
+          width: "6px",
+          height: "6px",
+          background: "#90caf9",
           borderRadius: "50%",
-          animation: "pulse 6s infinite",
         }}
       />
       <Box
         sx={{
           position: "absolute",
-          top: "50%",
-          right: "20%",
-          background: "radial-gradient(circle, #90caf9, transparent)",
-          width: "300px",
-          height: "300px",
+          top: "30%",
+          right: "10%",
+          width: "8px",
+          height: "8px",
+          background: "#bbdefb",
           borderRadius: "50%",
-          animation: "pulse 8s infinite",
-        }}
-      />
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "10%",
-          left: "30%",
-          background: "radial-gradient(circle, #e3f2fd, transparent)",
-          width: "250px",
-          height: "250px",
-          borderRadius: "50%",
-          animation: "pulse 7s infinite",
         }}
       />
 
-      {/* Header with Gradient and Curved Edge */}
+      {/* Header with Gradient and Subtle Shadow */}
       <Box
         sx={{
           background: "linear-gradient(90deg, #0d47a1, #1565c0)",
@@ -85,20 +70,14 @@ const AboutMe = () => {
             color: "#ffffff",
             fontFamily: "'Poppins', sans-serif",
             fontWeight: "bold",
+            textShadow: "1px 1px 2px rgba(0,0,0,0.2)", // Tiny shadow
           }}
         >
           {aboutMeData.title}
         </Typography>
       </Box>
 
-      <Container
-        style={{
-          marginTop: "20px",
-          fontFamily: "'Poppins', sans-serif",
-          position: "relative",
-          paddingBottom: "30px",
-        }}
-      >
+      <Container style={{ marginTop: "20px", fontFamily: "'Poppins', sans-serif" }}>
         {/* Introduction Section */}
         <Typography
           variant="h4"
@@ -108,6 +87,7 @@ const AboutMe = () => {
             color: "#0d47a1",
             fontWeight: "bold",
             marginBottom: "20px",
+            textShadow: "0.5px 0.5px 1px rgba(0,0,0,0.2)", // Tiny shadow
           }}
         >
           {aboutMeData.intro}
@@ -124,8 +104,9 @@ const AboutMe = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                   textAlign: "center",
-                  transition: "transform 0.3s ease", // Adding smooth transition
+                  transition: "transform 0.3s ease 0.1s", // Tiny delay on hover
                 }}
+                className="hover-box"
               >
                 <img
                   src={section.imageUrl}
@@ -134,9 +115,9 @@ const AboutMe = () => {
                     width: "100%",
                     borderRadius: "10px",
                     marginBottom: "15px",
-                    transition: "transform 0.3s ease", // Smooth transition for scaling
+                    transition: "transform 0.3s ease",
                   }}
-                  className="hover-image" // Class to apply hover effect
+                  className="hover-image"
                 />
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   {section.title}
@@ -149,7 +130,7 @@ const AboutMe = () => {
           ))}
         </Grid>
 
-        {/* Interactive Section with Animated Button */}
+        {/* Interactive Section */}
         <Box style={{ textAlign: "center", marginTop: "40px" }}>
           <Typography variant="h6" style={{ marginBottom: "20px" }}>
             Want to learn more?
@@ -161,10 +142,9 @@ const AboutMe = () => {
               color: "#ffffff",
               padding: "10px 20px",
               fontSize: "1rem",
-              position: "relative",
-              animation: "glow 2s infinite",
-              boxShadow: "0 0 10px #0d47a1",
+              transition: "box-shadow 0.3s ease",
             }}
+            className="glow-button"
           >
             Get in Touch
           </Button>
@@ -180,53 +160,30 @@ const AboutMe = () => {
           marginTop: "50px",
         }}
       >
-        <FaLaptopCode size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
-        <FaCamera size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
-        <FaMountain size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
-        <FaBicycle size={50} color="#0d47a1" style={{ animation: "bounce 2s infinite" }} />
+        <FaLaptopCode size={50} color="#0d47a1" className="icon-hover" />
+        <FaCamera size={50} color="#0d47a1" className="icon-hover" />
+        <FaMountain size={50} color="#0d47a1" className="icon-hover" />
+        <FaBicycle size={50} color="#0d47a1" className="icon-hover" />
       </Box>
 
-      {/* Keyframes for Animations */}
+      {/* Keyframes for Tiny Effects */}
       <style>
         {`
-          @keyframes pulse {
-            0% {
-              transform: scale(1);
-              opacity: 0.8;
-            }
-            50% {
-              transform: scale(1.2);
-              opacity: 0.6;
-            }
-            100% {
-              transform: scale(1);
-              opacity: 0.8;
-            }
-          }
-
-          @keyframes glow {
-            0% {
-              box-shadow: 0 0 5px #0d47a1;
-            }
-            50% {
-              box-shadow: 0 0 20px #1565c0;
-            }
-            100% {
-              box-shadow: 0 0 5px #0d47a1;
-            }
-          }
-
-          @keyframes bounce {
-            0%, 100% {
-              transform: translateY(0);
-            }
-            50% {
-              transform: translateY(-20px);
-            }
-          }
-
           .hover-image:hover {
-            transform: scale(1.05); /* Slight zoom on hover */
+            transform: scale(1.03); /* Slightly less than before */
+          }
+
+          .hover-box:hover {
+            transform: scale(1.02);
+          }
+
+          .glow-button:hover {
+            box-shadow: 0 0 15px #0d47a1;
+          }
+
+          .icon-hover:hover {
+            transform: rotate(3deg); /* Tiny tilt on hover */
+            transition: transform 0.2s ease;
           }
         `}
       </style>
