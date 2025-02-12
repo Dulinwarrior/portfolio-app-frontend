@@ -30,14 +30,39 @@ const MyHobbies = () => {
     axios
       .get("http://localhost:5002/api/hobbies") // Adjust the URL if needed
       .then((response) => {
-        setHobbies(response.data.hobbies); // Set the fetched hobbies to state
-        setLoading(false); // Set loading to false once data is fetched
+        if (response.data && response.data.hobbies) {
+          setHobbies(response.data.hobbies); // Set the fetched hobbies to state
+        } else {
+          // If hobbies data is missing or undefined, use dummy data
+          setHobbies(dummyData);
+        }
+        setLoading(false); // Set loading to false once data is fetched or fallback is used
       })
       .catch((error) => {
         console.error("There was an error fetching the hobbies data!", error);
+        // If error occurs, use dummy data
+        setHobbies(dummyData);
         setLoading(false); // Set loading to false in case of an error
       });
   }, []);
+
+  const dummyData = [
+    {
+      title: "Reading",
+      description: "I love reading books on various topics like fiction, philosophy, and technology.",
+      image: "https://www.w3schools.com/w3images/forest.jpg",
+    },
+    {
+      title: "Coding",
+      description: "Programming is both a passion and a profession. I enjoy building web applications.",
+      image: "https://www.w3schools.com/w3images/coding.jpg",
+    },
+    {
+      title: "Traveling",
+      description: "Exploring new places and experiencing different cultures is one of my greatest joys.",
+      image: "https://www.w3schools.com/w3images/mountains.jpg",
+    },
+  ];
 
   if (loading) {
     return <div>Loading...</div>; // Display loading message until data is fetched

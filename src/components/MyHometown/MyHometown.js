@@ -5,15 +5,26 @@ import { Container, Typography, Box, Grid, Button } from "@mui/material";
 const MyHometown = () => {
   const [hometownData, setHometownData] = useState(null);
 
+  const dummyData = {
+    title: "My Beautiful Hometown",
+    imageUrl: "https://www.w3schools.com/w3images/forest.jpg",
+    description: "This is a description of my hometown, which is a peaceful and beautiful place surrounded by nature.",
+  };
+
   useEffect(() => {
     // Fetching hometown data from backend
     axios
       .get("http://localhost:5002/api/hometown") // URL to the backend endpoint
       .then((response) => {
-        setHometownData(response.data);
+        if (response.data) {
+          setHometownData(response.data); // Set the fetched data if available
+        } else {
+          setHometownData(dummyData); // Use dummy data if no data is returned
+        }
       })
       .catch((error) => {
         console.error("Error fetching hometown data:", error);
+        setHometownData(dummyData); // Use dummy data in case of an error
       });
   }, []);
 
@@ -53,7 +64,7 @@ const MyHometown = () => {
         {/* Left Picture Section */}
         <Grid item xs={12} sm={6}>
           <img
-            src={hometownData.imageUrl} // Dynamic image from the backend
+            src={hometownData.imageUrl} // Dynamic image from the backend or fallback
             alt="Hometown Image"
             style={{
               width: "100%",
@@ -86,7 +97,7 @@ const MyHometown = () => {
               About My Hometown
             </Typography>
             <Typography variant="body1" paragraph>
-              {hometownData.description} {/* Dynamic description from backend */}
+              {hometownData.description} {/* Dynamic description from backend or fallback */}
             </Typography>
             <Button
               variant="contained"

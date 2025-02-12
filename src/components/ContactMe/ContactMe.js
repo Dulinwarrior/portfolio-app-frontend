@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
 
@@ -6,14 +6,34 @@ const ContactMe = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
+  const [contactInfo, setContactInfo] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5002/api/contact-info")
+      .then((response) => {
+        setContactInfo(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching contact info:", error);
+        setContactInfo({
+          title: "Contact Me",
+          description: "Feel free to get in touch! Fill out the form below, and I'll get back to you as soon as possible.",
+          images: [
+            "https://www.w3schools.com/w3images/team2.jpg",
+            "https://www.w3schools.com/w3images/team1.jpg",
+            "https://www.w3schools.com/w3images/team3.jpg",
+          ],
+        });
+      });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Send POST request to the backend
     axios
       .post("http://localhost:5002/api/contact", { email, message })
-      .then((response) => {
+      .then(() => {
         setStatus("Message sent successfully!");
         setEmail("");
         setMessage("");
@@ -61,7 +81,7 @@ const ContactMe = () => {
         }}
       >
         <Typography variant="h4" gutterBottom style={{ textAlign: "center", color: "#0d47a1", fontWeight: "bold" }}>
-          Contact Me
+          {contactInfo ? contactInfo.title : "Contact Me"}
         </Typography>
         <Typography
           variant="body1"
@@ -72,7 +92,7 @@ const ContactMe = () => {
             fontSize: "1.2rem",
           }}
         >
-          Feel free to get in touch! Fill out the form below, and I'll get back to you as soon as possible.
+          {contactInfo ? contactInfo.description : "Feel free to reach out and I'll get back to you soon."}
         </Typography>
 
         {/* Contact Form */}
@@ -137,42 +157,24 @@ const ContactMe = () => {
 
         {/* Images Section */}
         <Grid container spacing={2} style={{ marginTop: "30px" }}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              component="img"
-              src="https://www.w3schools.com/w3images/team2.jpg"
-              alt="Profile"
-              style={{
-                width: "100%",
-                borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              component="img"
-              src="https://www.w3schools.com/w3images/team1.jpg"
-              alt="Collaboration"
-              style={{
-                width: "100%",
-                borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              component="img"
-              src="https://www.w3schools.com/w3images/team3.jpg"
-              alt="Connections"
-              style={{
-                width: "100%",
-                borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              }}
-            />
-          </Grid>
+          {(contactInfo ? contactInfo.images : [
+            "https://www.w3schools.com/w3images/team2.jpg",
+            "https://www.w3schools.com/w3images/team1.jpg",
+            "https://www.w3schools.com/w3images/team3.jpg",
+          ]).map((image, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Box
+                component="img"
+                src={image}
+                alt={`Image ${index + 1}`}
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </Box>
