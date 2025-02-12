@@ -7,8 +7,8 @@ const MyHometown = () => {
 
   const dummyData = {
     title: "My Beautiful Hometown",
-    imageUrl: "https://www.w3schools.com/w3images/forest.jpg",
-    description: "This is a description of my hometown, which is a peaceful and beautiful place surrounded by nature.",
+    imageUrl: "https://q-xx.bstatic.com/xdata/images/hotel/max500/85940433.jpg?k=cede7b3e94fcde9b8cb0ff91a5d213a8e4fb2630098fa8c64c38684f3a5bfe6f&o=",
+    description: "My hometown is Madiwela,  which is a peaceful and beautiful place surrounded by nature.",
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const MyHometown = () => {
         {/* Left Picture Section */}
         <Grid item xs={12} sm={6}>
           <img
-            src={hometownData.imageUrl} // Dynamic image from the backend or fallback
+            src={hometownData?.imageUrl || "https://q-xx.bstatic.com/xdata/images/hotel/max500/85940433.jpg?k=cede7b3e94fcde9b8cb0ff91a5d213a8e4fb2630098fa8c64c38684f3a5bfe6f&o="} // Dynamic image from the backend or fallback
             alt="Hometown Image"
             style={{
               width: "100%",
@@ -97,7 +97,7 @@ const MyHometown = () => {
               About My Hometown
             </Typography>
             <Typography variant="body1" paragraph>
-              {hometownData.description} {/* Dynamic description from backend or fallback */}
+              {hometownData?.description ||"My hometown is Madiwela,  which is a peaceful and beautiful place surrounded by nature."} {/* Dynamic description from backend or fallback */}
             </Typography>
             <Button
               variant="contained"

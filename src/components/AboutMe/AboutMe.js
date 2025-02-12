@@ -25,17 +25,17 @@ const AboutMe = () => {
       {
         title: "Web Development",
         description: "I love coding and building amazing websites.",
-        imageUrl: "https://via.placeholder.com/150",
+        imageUrl: "https://www.getmecoding.com/wp-content/uploads/2017/10/GMC_blog_IsWebDevelopmentCoding_resize.jpg",
       },
       {
         title: "Photography",
         description: "Capturing moments through my lens.",
-        imageUrl: "https://via.placeholder.com/150",
+        imageUrl: "https://www.printique.com/wp-content/uploads/2022/03/prophotography3-1024x683.jpg",
       },
       {
         title: "Travel",
         description: "Exploring new places and adventures.",
-        imageUrl: "https://via.placeholder.com/150",
+        imageUrl: "https://media.istockphoto.com/id/904172104/photo/weve-made-it-all-this-way-i-am-proud.jpg?s=612x612&w=0&k=20&c=MewnsAhbeGRcMBN9_ZKhThmqPK6c8nCT8XYk5ZM_hdg=",
       },
     ],
   };

@@ -55,7 +55,7 @@ const MyHobbies = () => {
     {
       title: "Coding",
       description: "Programming is both a passion and a profession. I enjoy building web applications.",
-      image: "https://www.w3schools.com/w3images/coding.jpg",
+      image: "https://leadschool.in/wp-content/uploads/2022/04/shutterstock_1777292972.jpg",
     },
     {
       title: "Traveling",
