@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, Box, Grid, Button } from "@mui/material";
+import { Container, Typography, Box, Grid } from "@mui/material";
 import axios from "axios";
 import { FaLaptopCode, FaCamera, FaMountain, FaBicycle } from "react-icons/fa";
+
+const floatingIcons = [FaLaptopCode, FaCamera, FaMountain, FaBicycle];
 
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
@@ -17,7 +19,6 @@ const AboutMe = () => {
       });
   }, []);
 
-  // Dummy fallback data if API response is missing
   const defaultData = {
     title: "About Me",
     intro: "Welcome to my personal space!",
@@ -40,7 +41,6 @@ const AboutMe = () => {
     ],
   };
 
-  // Use actual data if available, otherwise fallback to default
   const data = aboutMeData || defaultData;
 
   return (
@@ -52,7 +52,21 @@ const AboutMe = () => {
         position: "relative",
       }}
     >
-      {/* Header */}
+      {/* Floating Background Icons */}
+      {floatingIcons.map((Icon, index) => (
+        <Icon
+          key={index}
+          style={{
+            position: "absolute",
+            top: `${Math.random() * 90}%`,
+            left: `${Math.random() * 90}%`,
+            fontSize: "50px",
+            color: "rgba(13, 71, 161, 0.2)",
+            animation: `float${index} 6s ease-in-out infinite alternate`,
+          }}
+        />
+      ))}
+
       <Box
         sx={{
           background: "linear-gradient(90deg, #0d47a1, #1565c0)",
@@ -63,32 +77,17 @@ const AboutMe = () => {
       >
         <Typography
           variant="h5"
-          style={{
-            textAlign: "center",
-            color: "#ffffff",
-            fontFamily: "'Poppins', sans-serif",
-            fontWeight: "bold",
-          }}
+          style={{ textAlign: "center", color: "#ffffff", fontWeight: "bold" }}
         >
           {data.title}
         </Typography>
       </Box>
 
-      <Container style={{ marginTop: "20px", fontFamily: "'Poppins', sans-serif" }}>
-        <Typography
-          variant="h4"
-          gutterBottom
-          style={{
-            textAlign: "center",
-            color: "#0d47a1",
-            fontWeight: "bold",
-            marginBottom: "20px",
-          }}
-        >
+      <Container style={{ marginTop: "20px" }}>
+        <Typography variant="h4" gutterBottom style={{ textAlign: "center", color: "#0d47a1", fontWeight: "bold" }}>
           {data.intro}
         </Typography>
 
-        {/* Sections */}
         <Grid container spacing={3} justifyContent="center">
           {data.sections?.map((section, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
@@ -99,18 +98,12 @@ const AboutMe = () => {
                   borderRadius: "10px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                   textAlign: "center",
-                  transition: "transform 0.3s ease 0.1s",
                 }}
               >
                 <img
                   src={section.imageUrl}
                   alt={section.title}
-                  style={{
-                    width: "100%",
-                    borderRadius: "10px",
-                    marginBottom: "15px",
-                    transition: "transform 0.3s ease",
-                  }}
+                  style={{ width: "100%", borderRadius: "10px", marginBottom: "15px" }}
                 />
                 <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   {section.title}
