@@ -12,7 +12,7 @@ const MySchool = () => {
     about: {
       header: "About Our School",
       description:
-        "Our school is known for its outstanding education and vibrant community. We prioritize student success and holistic development.",
+        "My school is Lyceum International school in Nugegoda. It is the mother school from all the lyceum schools and the biggest. Our founder is Dr.Mohan Lal Grero",
       buttonLabel: "Learn More",
     },
   };
@@ -50,24 +50,25 @@ const MySchool = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        background: "linear-gradient(to bottom right, #ff9a9e, #fad0c4)",
+        background: "linear-gradient(to right, #8a65c5, #7e9ac4)",  // Slightly brighter
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
         padding: 4,
       }}
     >
       <Container
         sx={{
-          background: "linear-gradient(to bottom, #ffffff, #f0f4f8)",
+          backgroundColor: "#f0f4f8",
           padding: 4,
           borderRadius: "12px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+          maxWidth: "900px",
         }}
       >
         <Box
           sx={{
-            background: "linear-gradient(to right, #2196f3, #6dd5fa)",
+            background: "linear-gradient(to right, #8d5fa4, #6f9bc8)",  // Slightly brighter
             color: "#fff",
             padding: 2,
             borderRadius: "12px 12px 0 0",
@@ -80,49 +81,58 @@ const MySchool = () => {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <img
-              src={
-                mySchoolData?.imageUrl ||
-                "https://cdn.lyceum.lk/edgemedia/20240426182100/lyceum-wattala-complex.jpg"
-              }
-              alt="School Image"
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: "8px",
+            <Box
+              sx={{
+                overflow: "hidden",
+                borderRadius: "12px",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                transition: "transform 0.4s ease-in-out",
+                ":hover": {
+                  transform: "scale(1.05)",
+                },
               }}
-            />
+            >
+              <img
+                src={mySchoolData?.imageUrl || dummyData.imageUrl}
+                alt="School Image"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </Box>
           </Grid>
 
           <Grid item xs={12} sm={6}>
             <Box
               sx={{
-                border: "2px solid #2196f3",
-                borderRadius: "8px",
+                borderRadius: "12px",
                 padding: 3,
-                background: "linear-gradient(to bottom, #ffffff, #e3f2fd)",
-                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                background: "linear-gradient(to right, #8a65c5, #7e9ac4)",  // Slightly brighter
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
                 textAlign: "center",
+                color: "white",
+                transition: "transform 0.4s ease-in-out, background 0.4s ease-in-out",
+                ":hover": {
+                  transform: "scale(1.08)",
+                  background: "linear-gradient(to right, #7e9ac4, #8a65c5)",  // Slightly brighter
+                },
               }}
             >
-              <Typography variant="h6" color="primary" gutterBottom>
-                {mySchoolData?.about?.header || "About Our School"}
+              <Typography variant="h6" gutterBottom>
+                {mySchoolData?.about?.header || dummyData.about.header}
               </Typography>
               <Typography variant="body1" paragraph>
-                {mySchoolData?.about?.description ||
-                  "Our school is known for its outstanding education and vibrant community. We prioritize student success and holistic development."}
+                {mySchoolData?.about?.description || dummyData.about.description}
               </Typography>
               <Button
                 variant="contained"
                 sx={{
-                  background: "linear-gradient(to right, #2196f3, #6dd5fa)",
+                  backgroundColor: "#2196f3",
                   color: "#fff",
-                  "&:hover": {
-                    background: "linear-gradient(to right, #1976d2, #42a5f5)",
+                  ":hover": {
+                    backgroundColor: "#1976d2",
                   },
                 }}
               >
-                {mySchoolData?.about?.buttonLabel || "Learn More"}
+                {mySchoolData?.about?.buttonLabel || dummyData.about.buttonLabel}
               </Button>
             </Box>
           </Grid>
