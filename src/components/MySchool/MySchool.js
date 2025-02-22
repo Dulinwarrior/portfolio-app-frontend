@@ -6,13 +6,14 @@ const MySchool = () => {
   const [mySchoolData, setMySchoolData] = useState(null);
   const [error, setError] = useState(null);
 
+  // Updated dummyData with your custom data
   const dummyData = {
-    title: "My Amazing School",
+    title: "Lyceum International School",
     imageUrl: "https://cdn.lyceum.lk/edgemedia/20240426182100/lyceum-wattala-complex.jpg",
     about: {
-      header: "About Our School",
+      header: "About Lyceum International School",
       description:
-        "My school is Lyceum International school in Nugegoda. It is the mother school from all the lyceum schools and the biggest. Our founder is Dr.Mohan Lal Grero",
+        "My school is Lyceum International school in Nugegoda. It is the mother school from all the lyceum schools and the biggest. Our founder is Dr. Mohan Lal Grero",
       buttonLabel: "Learn More",
     },
   };
@@ -24,13 +25,13 @@ const MySchool = () => {
         if (response.data) {
           setMySchoolData(response.data);
         } else {
-          setMySchoolData(dummyData);
+          setMySchoolData(dummyData); // Fallback to custom dummy data
         }
       })
       .catch((error) => {
         setError("There was an error fetching the data.");
         console.error("Error fetching data:", error);
-        setMySchoolData(dummyData);
+        setMySchoolData(dummyData); // Fallback to custom dummy data on error
       });
   }, []);
 
