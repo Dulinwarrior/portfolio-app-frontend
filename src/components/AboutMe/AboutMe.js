@@ -7,6 +7,7 @@ const floatingIcons = [FaLaptopCode, FaCamera, FaMountain, FaBicycle];
 
 const AboutMe = () => {
   const [aboutMeData, setAboutMeData] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     axios
@@ -17,6 +18,14 @@ const AboutMe = () => {
       .catch((error) => {
         console.error("Error fetching data from backend:", error);
       });
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setMousePosition({ x: event.clientX / 100, y: event.clientY / 100 });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const defaultData = {
@@ -46,30 +55,30 @@ const AboutMe = () => {
   return (
     <Box
       style={{
-        background: "linear-gradient(to bottom, #e3f2fd, #ffffff)",
+        background: "linear-gradient(to bottom right, #ff9a9e, #fad0c4, #fad0c4, #ffdde1)",
         minHeight: "100vh",
         overflow: "hidden",
         position: "relative",
       }}
     >
-      {/* Floating Background Icons */}
+      {/* Floating Background Icons with slower movement */}
       {floatingIcons.map((Icon, index) => (
         <Icon
           key={index}
           style={{
             position: "absolute",
-            top: `${Math.random() * 90}%`,
-            left: `${Math.random() * 90}%`,
+            top: `calc(${Math.random() * 90}% + ${mousePosition.y}px)`,
+            left: `calc(${Math.random() * 90}% + ${mousePosition.x}px)`,
             fontSize: "50px",
-            color: "rgba(13, 71, 161, 0.2)",
-            animation: `float${index} 6s ease-in-out infinite alternate`,
+            color: "rgba(255, 105, 180, 0.3)",
+            transition: "transform 0.4s ease-out",
           }}
         />
       ))}
 
       <Box
         sx={{
-          background: "linear-gradient(90deg, #0d47a1, #1565c0)",
+          background: "linear-gradient(90deg, #ff758c, #ff7eb3)",
           padding: "20px 0",
           borderBottomLeftRadius: "30px",
           borderBottomRightRadius: "30px",
@@ -84,7 +93,7 @@ const AboutMe = () => {
       </Box>
 
       <Container style={{ marginTop: "20px" }}>
-        <Typography variant="h4" gutterBottom style={{ textAlign: "center", color: "#0d47a1", fontWeight: "bold" }}>
+        <Typography variant="h4" gutterBottom style={{ textAlign: "center", color: "#ff4b5c", fontWeight: "bold" }}>
           {data.intro}
         </Typography>
 

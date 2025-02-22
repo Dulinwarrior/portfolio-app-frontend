@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Button } from "@mui/material";
 import axios from "axios";
+import { FaCode, FaGlobe, FaRocket, FaLightbulb } from "react-icons/fa";
+
+const floatingIcons = [FaCode, FaGlobe, FaRocket, FaLightbulb];
 
 const MyWork = () => {
   const [myWorkData, setMyWorkData] = useState(null);
@@ -52,24 +55,36 @@ const MyWork = () => {
   }
 
   return (
-    <Container
+    <Box
       sx={{
-        backgroundColor: "#f0f4f8", // Light blue background
+        background: "linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1)",
+        minHeight: "100vh",
         padding: 4,
-        borderRadius: "8px",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         position: "relative",
         overflow: "hidden",
-        backgroundImage: "url('https://via.placeholder.com/100x100?text=Background')", // Subtle background image
-        backgroundSize: "cover",
       }}
     >
+      {/* Floating Interactive Icons */}
+      {floatingIcons.map((Icon, index) => (
+        <Icon
+          key={index}
+          style={{
+            position: "absolute",
+            top: `${Math.random() * 90}%`,
+            left: `${Math.random() * 90}%`,
+            fontSize: "40px",
+            color: "rgba(255, 255, 255, 0.4)",
+            animation: `floatAnimation ${3 + Math.random() * 3}s infinite alternate ease-in-out`,
+          }}
+        />
+      ))}
+
       <Box
         sx={{
-          backgroundColor: "#2196f3", // Blue background for header
+          backgroundColor: "#6200ea",
           color: "#fff",
           padding: 2,
-          borderRadius: "12px 12px 0 0", // Curved top header
+          borderRadius: "12px 12px 0 0",
           textAlign: "center",
           marginBottom: 3,
         }}
@@ -77,72 +92,59 @@ const MyWork = () => {
         <Typography variant="h4">{myWorkData.header}</Typography>
       </Box>
 
-      {myWorkData.sections.map((section, index) => (
-        <Box
-          key={index}
-          sx={{
-            border: "2px solid #2196f3",
-            borderRadius: "8px",
-            padding: 3,
-            backgroundColor: "#fff",
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-            marginBottom: 3,
-            textAlign: "center",
-            transition: "transform 0.3s",
-            "&:hover": {
-              transform: "scale(1.05)",
-            },
-          }}
-        >
-          <Typography variant="h6" color="primary" sx={{ marginBottom: 2 }}>
-            {section.title}
-          </Typography>
-          <img
-            src={section.imageUrl}
-            alt={section.title}
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: "8px",
-              marginBottom: "16px",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-          <Typography variant="body1" sx={{ marginBottom: 2 }}>
-            {section.description}
-          </Typography>
-          <Button
-            variant="contained"
+      <Container>
+        {myWorkData.sections.map((section, index) => (
+          <Box
+            key={index}
             sx={{
-              marginTop: 2,
-              backgroundColor: "#2196f3",
-              color: "#fff",
+              border: "2px solid #6200ea",
+              borderRadius: "8px",
+              padding: 3,
+              backgroundColor: "#fff",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+              marginBottom: 3,
+              textAlign: "center",
+              transition: "transform 0.3s, background 0.3s",
               "&:hover": {
-                backgroundColor: "#1976d2",
+                transform: "scale(1.05)",
+                background: "#e1bee7",
               },
             }}
           >
-            {section.buttonLabel}
-          </Button>
-        </Box>
-      ))}
-
-      {/* Subtle Decorative Element */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          opacity: 0.1,
-          fontSize: "150px",
-          color: "#2196f3",
-          zIndex: -1,
-        }}
-      >
-        <Typography variant="h1">Projects</Typography>
-      </Box>
-    </Container>
+            <Typography variant="h6" color="primary" sx={{ marginBottom: 2 }}>
+              {section.title}
+            </Typography>
+            <img
+              src={section.imageUrl}
+              alt={section.title}
+              style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: "8px",
+                marginBottom: "16px",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+              }}
+            />
+            <Typography variant="body1" sx={{ marginBottom: 2 }}>
+              {section.description}
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                marginTop: 2,
+                backgroundColor: "#6200ea",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#3700b3",
+                },
+              }}
+            >
+              {section.buttonLabel}
+            </Button>
+          </Box>
+        ))}
+      </Container>
+    </Box>
   );
 };
 
