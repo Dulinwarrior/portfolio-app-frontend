@@ -1,48 +1,26 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // Import Axios
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material";
-import { keyframes } from "@emotion/react"; // Correct import for keyframes
-
-// Animation for interactive background elements
-const floating = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-`;
+import axios from "axios";
+import { Container, Typography, Box, Grid, Card, CardMedia, CardContent } from "@mui/material";
 
 const MyHobbies = () => {
-  const [hobbies, setHobbies] = useState([]); // State to store fetched hobbies
-  const [loading, setLoading] = useState(true); // Loading state
+  const [hobbies, setHobbies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch hobbies data from backend API
     axios
-      .get("http://localhost:5002/api/hobbies") // Adjust the URL if needed
+      .get("http://localhost:5002/api/hobbies")
       .then((response) => {
         if (response.data && response.data.hobbies) {
-          setHobbies(response.data.hobbies); // Set the fetched hobbies to state
+          setHobbies(response.data.hobbies);
         } else {
-          // If hobbies data is missing or undefined, use dummy data
           setHobbies(dummyData);
         }
-        setLoading(false); // Set loading to false once data is fetched or fallback is used
+        setLoading(false);
       })
       .catch((error) => {
-        console.error("There was an error fetching the hobbies data!", error);
-        // If error occurs, use dummy data
+        console.error("Error fetching hobbies data!", error);
         setHobbies(dummyData);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       });
   }, []);
 
@@ -65,27 +43,30 @@ const MyHobbies = () => {
   ];
 
   if (loading) {
-    return <div>Loading...</div>; // Display loading message until data is fetched
+    return <div>Loading...</div>;
   }
 
   return (
     <div
       style={{
-        backgroundColor: "#e3f2fd",
+        background: "linear-gradient(to right, #4facfe, #00f2fe)",
         minHeight: "100vh",
-        position: "relative",
-        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
       }}
     >
-      {/* Header Section */}
       <Box
         sx={{
           backgroundColor: "#1565c0",
           color: "white",
-          padding: "20px 0",
+          padding: "40px 0",
           textAlign: "center",
           borderBottomLeftRadius: "60px",
           borderBottomRightRadius: "50px",
+          width: "100%",
         }}
       >
         <Typography variant="h3" sx={{ fontWeight: "bold" }}>
@@ -93,9 +74,8 @@ const MyHobbies = () => {
         </Typography>
       </Box>
 
-      {/* Main Content Section */}
       <Container sx={{ marginTop: "20px" }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} justifyContent="center">
           {hobbies.length > 0 ? (
             hobbies.map((hobby, index) => (
               <Grid item xs={12} md={4} key={index}>
@@ -105,6 +85,10 @@ const MyHobbies = () => {
                     backgroundColor: "#bbdefb",
                     textAlign: "center",
                     padding: "20px",
+                    transition: "transform 0.3s ease-in-out",
+                    "&:hover": {
+                      transform: "scale(1.05)",
+                    },
                   }}
                 >
                   <CardMedia
@@ -112,14 +96,17 @@ const MyHobbies = () => {
                     height="150"
                     image={hobby.image}
                     alt={hobby.title}
-                    sx={{ borderRadius: "10px", marginBottom: "10px" }}
+                    sx={{
+                      borderRadius: "10px",
+                      marginBottom: "10px",
+                      transition: "transform 0.3s ease-in-out",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                      },
+                    }}
                   />
                   <CardContent>
-                    <Typography
-                      variant="h6"
-                      color="primary"
-                      sx={{ fontWeight: "bold", marginBottom: "10px" }}
-                    >
+                    <Typography variant="h6" color="primary" sx={{ fontWeight: "bold", marginBottom: "10px" }}>
                       {hobby.title}
                     </Typography>
                     <Typography variant="body2">{hobby.description}</Typography>
