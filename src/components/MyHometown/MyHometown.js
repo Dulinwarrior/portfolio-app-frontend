@@ -8,23 +8,22 @@ const MyHometown = () => {
   const dummyData = {
     title: "My Beautiful Hometown",
     imageUrl: "https://q-xx.bstatic.com/xdata/images/hotel/max500/85940433.jpg?k=cede7b3e94fcde9b8cb0ff91a5d213a8e4fb2630098fa8c64c38684f3a5bfe6f&o=",
-    description: "My hometown is Madiwela,  which is a peaceful and beautiful place surrounded by nature.",
+    description: "My hometown is Madiwela, which is a peaceful and beautiful place surrounded by nature.",
   };
 
   useEffect(() => {
-    // Fetching hometown data from backend
     axios
-      .get("http://localhost:5002/api/hometown") // URL to the backend endpoint
+      .get("http://localhost:5002/api/hometown")
       .then((response) => {
         if (response.data) {
-          setHometownData(response.data); // Set the fetched data if available
+          setHometownData(response.data);
         } else {
-          setHometownData(dummyData); // Use dummy data if no data is returned
+          setHometownData(dummyData);
         }
       })
       .catch((error) => {
         console.error("Error fetching hometown data:", error);
-        setHometownData(dummyData); // Use dummy data in case of an error
+        setHometownData(dummyData);
       });
   }, []);
 
@@ -37,84 +36,90 @@ const MyHometown = () => {
   }
 
   return (
-    <Container
+    <Box
       sx={{
-        backgroundColor: "#f0f4f8", // Light blue background for the page
+        minHeight: "100vh", // Full viewport height
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #ff9a9e, #ff6a88, #ff4e62)", // Full-page gradient
         padding: 4,
-        borderRadius: "8px",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
       }}
     >
-      {/* Curved Header */}
-      <Box
+      <Container
         sx={{
-          backgroundColor: "#2196f3", // Blue background for header
-          color: "#fff",
-          padding: 2,
-          borderRadius: "12px 12px 0 0", // Curved top header
-          textAlign: "center",
-          marginBottom: 3,
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          padding: 4,
+          borderRadius: "12px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Typography variant="h4">{hometownData.title}</Typography>
-      </Box>
+        <Box
+          sx={{
+            background: "linear-gradient(90deg, #2196f3, #1976d2)", // Gradient header
+            color: "#fff",
+            padding: 2,
+            borderRadius: "12px 12px 0 0",
+            textAlign: "center",
+            marginBottom: 3,
+          }}
+        >
+          <Typography variant="h4">{hometownData.title}</Typography>
+        </Box>
 
-      {/* Grid Layout with Pictures and Info */}
-      <Grid container spacing={3}>
-        {/* Left Picture Section */}
-        <Grid item xs={12} sm={6}>
-          <img
-            src={hometownData?.imageUrl || "https://q-xx.bstatic.com/xdata/images/hotel/max500/85940433.jpg?k=cede7b3e94fcde9b8cb0ff91a5d213a8e4fb2630098fa8c64c38684f3a5bfe6f&o="} // Dynamic image from the backend or fallback
-            alt="Hometown Image"
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: "8px",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              transition: "transform 0.3s",
-            }}
-            className="hover-effect"
-          />
-        </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <img
+              src={hometownData?.imageUrl}
+              alt="Hometown Image"
+              style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                transition: "transform 0.3s",
+              }}
+            />
+          </Grid>
 
-        {/* Right Info Section */}
-        <Grid item xs={12} sm={6}>
-          <Box
-            sx={{
-              border: "2px solid #2196f3",
-              borderRadius: "8px",
-              padding: 3,
-              backgroundColor: "#fff",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              textAlign: "center",
-              transition: "transform 0.3s",
-              "&:hover": {
-                transform: "scale(1.05)", // Hover effect on the box
-              },
-            }}
-          >
-            <Typography variant="h6" color="primary" gutterBottom>
-              About My Hometown
-            </Typography>
-            <Typography variant="body1" paragraph>
-              {hometownData?.description ||"My hometown is Madiwela,  which is a peaceful and beautiful place surrounded by nature."} {/* Dynamic description from backend or fallback */}
-            </Typography>
-            <Button
-              variant="contained"
+          <Grid item xs={12} sm={6}>
+            <Box
               sx={{
-                backgroundColor: "#2196f3",
-                color: "#fff",
+                border: "2px solid #2196f3",
+                borderRadius: "8px",
+                padding: 3,
+                backgroundColor: "#fff",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                textAlign: "center",
+                transition: "all 0.4s ease-in-out",
                 "&:hover": {
-                  backgroundColor: "#1976d2",
+                  background: "linear-gradient(135deg, #ff9a9e, #ff6a88)",
+                  transform: "scale(1.05)",
+                  color: "#fff",
                 },
               }}
             >
-              Learn More
-            </Button>
-          </Box>
+              <Typography variant="h6" color="primary" gutterBottom>
+                About My Hometown
+              </Typography>
+              <Typography variant="body1" paragraph>
+                {hometownData?.description}
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#2196f3",
+                  color: "#fff",
+                  "&:hover": { backgroundColor: "#1976d2" },
+                }}
+              >
+                Learn More
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 
